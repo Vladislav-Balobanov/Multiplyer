@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <errhandlingapi.h>
 
-typedef std::vector<int>& (*MultiplyFuncPointer)(std::vector<int>, int, double);
+typedef std::vector<int>& (* MultiplyFuncPointer)(std::vector<int>, int, double);
 
 int main()
 {
