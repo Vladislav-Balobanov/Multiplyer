@@ -1,22 +1,10 @@
 #include <iostream>
 #include <vector>
-#include <Windows.h>
-#include <errhandlingapi.h>
+#include "loader.h"
 
-typedef std::vector<int>& (* MultiplyFuncPointer)(std::vector<int>, int, double);
-
-int main()
+std::vector<int> generateRandVector()
 {
-	HINSTANCE LoadingDLL = LoadLibrary(L"C:\\Users\\balobanov_va\\source\\repos\\Multiplyer\\x64\\Release\\MultiplyerLib.dll");
-
-	if (!LoadingDLL)
-		return EXIT_FAILURE;
-
-	MultiplyFuncPointer multFuncPtr = (MultiplyFuncPointer)GetProcAddress(LoadingDLL, "multiply");
-
 	int countOfElements = 0;
-	double factor = 0;
-
 	std::cout << "Insert count of elements: ";
 	std::cin >> countOfElements;
 
@@ -25,18 +13,50 @@ int main()
 	for (int i = 0; i < countOfElements; i++)
 	{
 		vector.push_back(rand() % 100);
-		std::cout << vector[i] << ' ';
 	}
 
-	std::cout << "\nInsert factor: ";
-	std::cin >> factor;
+	return vector;
+}
 
-	std::vector<int> resultVector = multFuncPtr(vector, countOfElements, factor);
+void print(std::vector<int>& vector, std::string vectorName)
+{
+	std::cout << vectorName << ": ";
 
-	std::cout << "Result: ";
-	for (auto element : resultVector)
+	for (auto element : vector)
 	{
 		std::cout << element << ' ';
+	}
+
+	std::cout << std::endl;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "rus");
+
+	try
+	{
+		MultiplyFuncPointer multiplyPtr = loadFunctionFromDLL();
+		if (multiplyPtr == NULL)
+		{
+			throw std::exception("Не возможно загрузить экспортируемую функцию из MultiplyerLib.dll");
+		}
+
+		std::vector<int> generatedVector = generateRandVector();
+		print(generatedVector, "generatedVector");
+
+		double factor = 0;
+
+		std::cout << "Insert factor: ";
+		std::cin >> factor;
+
+		std::vector<int> resultVector = multiplyPtr(generatedVector, generatedVector.size(), factor);
+		print(resultVector, "resultVector");
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << ex.what() << std::endl;
+		exit;
 	}
 
 	return 0;
