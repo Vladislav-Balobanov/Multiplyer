@@ -10,9 +10,9 @@ static unsigned index_;
 
 std::vector<int>& multiply(std::vector<int>& vector, int countOfElements, double factor)
 {
-	for (auto& element : vector)
+	for (int i = 0; i < countOfElements; i++)
 	{
-		element *= factor;
+		vector[i] *= factor;
 	}
 
 	return vector;
