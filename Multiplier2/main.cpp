@@ -17,7 +17,8 @@ std::vector<int> generateRandVector()
 	return vector;
 }
 
-void print(std::vector<int>& vector, std::string vectorName)
+template <typename T>
+void print(std::vector<T>& vector, std::string vectorName)
 {
 	std::cout << vectorName << ": ";
 
@@ -36,20 +37,20 @@ int main()
 	try
 	{
 		std::vector<int> generatedVector = generateRandVector();
-		print(generatedVector, "generatedVector");
+		print<int>(generatedVector, "generatedVector");
 
 		double factor = 0;
 
 		std::cout << "Введите множитель для массива factor: ";
 		std::cin >> factor;
 
-		std::vector<int> resultVector = multiply(generatedVector, generatedVector.size(), factor);
-		print(resultVector, "resultVector");
+		std::vector<double> resultVector = multiply(generatedVector, generatedVector.size(), factor);
+		print<double>(resultVector, "resultVector");
 	}
 	catch (std::exception& ex)
 	{
 		std::cout << ex.what() << std::endl;
-		exit;
+		return -1;
 	}
 
     return 0;

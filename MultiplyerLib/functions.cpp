@@ -8,12 +8,14 @@ static unsigned long long previous_;
 static unsigned long long current_;
 static unsigned index_;
 
-std::vector<int>& multiply(std::vector<int>& vector, int countOfElements, double factor)
+std::vector<double>& multiply(std::vector<int>& vector, int countOfElements, double factor)
 {
+	std::vector<double> resultVector;
+
 	for (int i = 0; i < countOfElements; i++)
 	{
-		vector[i] *= factor;
+		resultVector[i] = vector[i] * factor;
 	}
 
-	return vector;
+	return resultVector;
 }

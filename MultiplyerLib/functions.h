@@ -7,4 +7,4 @@
 #define MYLIB_API _declspec(dllimport)
 #endif
 
-extern "C" MYLIB_API std::vector<int>&multiply(std::vector<int>&vector, int countOfElements, double factor);
+extern "C" MYLIB_API std::vector<double>&multiply(std::vector<int>&vector, int countOfElements, double factor);
