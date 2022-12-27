@@ -8,7 +8,7 @@ typedef std::vector<double>& (*MultiplyFuncPointer)(std::vector<int>, int, doubl
 
 MultiplyFuncPointer loadFunctionFromDLL()
 {
-	HINSTANCE LoadingDLL = LoadLibrary(L"C:\\Users\\balobanov_va\\source\\repos\\Multiplyer\\x64\\Release\\MultiplyerLib.dll");
+	HINSTANCE LoadingDLL = LoadLibrary(L"MultiplyerLib.dll");
 
 	if (!LoadingDLL)
 		return NULL;
